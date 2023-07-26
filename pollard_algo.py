@@ -1,5 +1,4 @@
-# Python 3 program to find a prime factor of composite using
-# Pollard's Rho algorithm
+#
 import random
 import math
 

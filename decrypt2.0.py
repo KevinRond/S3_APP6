@@ -1,10 +1,15 @@
-# Python 3 program to find a prime factor of composite using
-# Pollard's Rho algorithm
+"""
+The functions in this code can be used to solve certain calculations regarding cryptography.
+
+
+
+
+"""
 import random
 import math
 
 
-# Function to calculate (base^exponent)%modulus
+# Function to calculate (base^exponent) % modulus
 def modular_pow(base, exponent, modulus):
     # initialize result
     result = 1
@@ -100,18 +105,12 @@ def inverse_multiplicatif_mod(a, n):
         hv = tv
     return hv
 
-def decrypt(m, d, n):
-    msg_decrypted = modular_pow(m, d, n)
-    return msg_decrypted
 
-
-def programme():
+def calculate_decryption_key(e, n):
     #    print("test: ", inverse_multiplicatif_mod(45,56))
     #    print("test pollard: ", PollardRho(86429))
-    e = 1009
-    n = 71632723108922042565754944705405938190163585182073827738737257362015607916694427702407539315166426071602596601779609881448209515844638662529498857637473895727439924386515509746946997356908229763669590304560652312325131017845440601438692992657035378159812499525148161871071841049058092385268270673367938496513
     p = Pollard_pm1(n)
-    print(p)
+    # print(p)
     q = n // p
     nPQ = p * q
     if (nPQ != n):
@@ -121,22 +120,44 @@ def programme():
     #    if (d < 0):
     #        d = n + d
 
-    print("n= ", n, "\np=", p, "\nq=", q, "\nd=", d, "\nphiN=", phi_n)
-    print("private-key (n,d)= (", n, ",", d, ")")
-    return n, d
+    # print("n= ", n, "\np=", p, "\nq=", q, "\nd=", d, "\nphiN=", phi_n)
+    # print("private-key (n,d)= (", n, ",", d, ")")
+    return d
 
 
 # Driver function
 if __name__ == "__main__":
-    n, d = programme()
-    print('d = ', d)
+    e = 1009
+    n = 71632723108922042565754944705405938190163585182073827738737257362015607916694427702407539315166426071602596601779609881448209515844638662529498857637473895727439924386515509746946997356908229763669590304560652312325131017845440601438692992657035378159812499525148161871071841049058092385268270673367938496513
+
+    d = calculate_decryption_key(e, n)
+    # print('d = ', d)
     g = 43089172300844684958445369204000423742543038862350925279569289644298734265625491619486408239703259462606739540181409010715678916496299388069246398890469779970287613357772582024703107603034996120914490203805569384580718393586094166173301167583379300330660182750028000520221960355249560831414918130647224546308
     cle = modular_pow(g, d, n)
-    print('cle = ', cle)
+    # print('cle = ', cle)
+    e = 13
+    n = 86062381025757488680496918738059554508315544797
 
+    d = calculate_decryption_key(e, n)
 
+    # Define the encrypted salaries and employee jobs
+    employees = [
+        ("Alain St-Malo", "Marketing", 81530476374664351124876242644701327168836407987),
+        ("Michele Denis", "Marketing", 83740877821201430552252653974153238737996745098),
+        ("Stephanie Desjardins", "R&D", 51373667846507963545859239582447701017826406175),
+        ("Fernand Tessier", "R&D", 61167846837720209456441528754183777549647735855),
+        ("Angele Tremblay", "Ventes", 42340513171888188994504759277496496710896088718),
+        ("Bernard Dumais", "Service", 65069303637151076134861115122997306654987857614),
+        ("Claude Dupuis", "Reception", 32785990179062766920584737848735367794508677603)
+    ]
+    print('')
+    print("=" * 60)
+    print("Employee Name".ljust(25), "Job".ljust(15), "Decrypted Salary")
+    print("=" * 60)
 
-
+    for name, job, encrypted_salary in employees:
+        decrypted_salary = modular_pow(encrypted_salary, d, n)
+        print(f"{name.ljust(25)}{job.ljust(15)}{decrypted_salary:12,}")
 
     # crypted_q = 70785482415899901219256855373079758876285923471951840038722877622097582944768442919300478197733262514534911901131859013939654902078384994979880540719293485131574905521151256806126737353610928922434810670654618891838295876181905553857594653764136067479449117470741836721372149447795646290103141292761424726007
     # crypted_p = 55044587110698448189468021909149190373421069219506981148292634221985403129928367209713497911359302701069378532959510957622709061077384648566361893749771744973388835727259855002207844685526295296408852878202498675158924213264474587673461598376054133832370354928763624202425050121409987087150490459351809040858
@@ -144,13 +165,3 @@ if __name__ == "__main__":
     # print("Decrypted q = ", decrypted_q)
     # decrypted_p = modular_pow(crypted_p, d, n)
     # print("Decrypted p = ", decrypted_p)
-#    c = modular_pow(50, 3, 55)
-#    m = modular_pow(c, 27, 55)
-#    print(m)
-
-#    c = modular_pow(50, 13, 86062381025757488680496918738059554508315544797)
-#    m = modular_pow(c, 46341282156994238628536118344529511083859039514, 86062381025757488680496918738059554508315544797)
-#    print(m)
-
-
-# This code is contributed by chitranayal
